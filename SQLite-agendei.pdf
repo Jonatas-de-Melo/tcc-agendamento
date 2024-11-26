@@ -1,0 +1,94 @@
+--
+-- File generated with SQLiteStudio v3.4.4 on ter nov 26 11:00:02 2024
+--
+-- Text encoding used: System
+--
+PRAGMA foreign_keys = off;
+BEGIN TRANSACTION;
+
+-- Table: admins
+CREATE TABLE IF NOT EXISTS admins (
+    id_admin  INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome      VARCHAR(50),
+    email     VARCHAR(100),
+    senha     VARCHAR(100)
+);
+
+-- Table: appos
+CREATE TABLE IF NOT EXISTS appos (id_appo INTEGER PRIMARY KEY AUTOINCREMENT, id_profissional INTEGER, id_servico INTEGER, id_user INTEGER, data DATE, hora VARCHAR (5), FOREIGN KEY (id_profissional) REFERENCES profissionais (id_profissional), FOREIGN KEY (id_servico) REFERENCES servicos (id_servico), FOREIGN KEY (id_user) REFERENCES users (id_user));
+INSERT INTO appos (id_appo, id_profissional, id_servico, id_user, data, hora) VALUES (40, 5, 7, 1, '2024-11-07', '08:30');
+INSERT INTO appos (id_appo, id_profissional, id_servico, id_user, data, hora) VALUES (43, 5, 7, 8, '2024-11-25', '14:00');
+INSERT INTO appos (id_appo, id_profissional, id_servico, id_user, data, hora) VALUES (44, 6, 9, 8, '2024-11-22', '15:00');
+
+-- Table: profissionais
+CREATE TABLE IF NOT EXISTS profissionais (
+    id_profissional  INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome             VARCHAR(50),
+    funcao          VARCHAR(50),
+    icon             VARCHAR(10)
+);
+INSERT INTO profissionais (id_profissional, nome, funcao, icon) VALUES (1, 'Armando', 'mecanico', 'male');
+INSERT INTO profissionais (id_profissional, nome, funcao, icon) VALUES (2, 'Nonato', 'mecanico', 'male');
+INSERT INTO profissionais (id_profissional, nome, funcao, icon) VALUES (3, 'Roberto', 'mecanico', 'male');
+INSERT INTO profissionais (id_profissional, nome, funcao, icon) VALUES (5, 'Antonio Almeida', 'Mecanico', 'male');
+INSERT INTO profissionais (id_profissional, nome, funcao, icon) VALUES (6, 'Pedro Almeida', 'Mecanico', 'male');
+
+-- Table: profissional_servicos
+CREATE TABLE IF NOT EXISTS profissional_servicos (
+    id_profissional_servico  INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_profissional          INTEGER,
+    id_servico              INTEGER,
+    preco                   DECIMAL(9,2),
+    FOREIGN KEY (id_profissional) REFERENCES profissionais(id_profissional),
+    FOREIGN KEY (id_servico) REFERENCES servicos(id_servico)
+);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (8, 1, 1, 100);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (9, 1, 2, 300);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (10, 1, 3, 150);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (11, 1, 5, NULL);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (12, 2, 1, 100);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (13, 2, 5, NULL);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (14, 2, 6, 230);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (15, 2, 7, 800);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (16, 3, 5, NULL);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (17, 3, 8, 450);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (18, 3, 9, 275);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (19, 3, 1, 100);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (20, 5, 5, NULL);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (21, 5, 6, 230);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (22, 5, 7, 800);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (23, 5, 8, 450);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (24, 6, 5, NULL);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (25, 6, 9, 275);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (26, 6, 1, 100);
+INSERT INTO profissional_servicos (id_profissional_servico, id_profissional, id_servico, preco) VALUES (27, 6, 2, 300);
+
+-- Table: servicos
+CREATE TABLE IF NOT EXISTS servicos (
+    id_servico  INTEGER PRIMARY KEY AUTOINCREMENT,
+    descricao   VARCHAR(50)
+);
+INSERT INTO servicos (id_servico, descricao) VALUES (1, 'Troca de oleo');
+INSERT INTO servicos (id_servico, descricao) VALUES (2, 'Suspensão');
+INSERT INTO servicos (id_servico, descricao) VALUES (3, 'Alinhamento');
+INSERT INTO servicos (id_servico, descricao) VALUES (5, 'Orçamento de serviço');
+INSERT INTO servicos (id_servico, descricao) VALUES (6, 'Scanner automotivo');
+INSERT INTO servicos (id_servico, descricao) VALUES (7, 'Injeção eletronica');
+INSERT INTO servicos (id_servico, descricao) VALUES (8, 'Limpeza de bico');
+INSERT INTO servicos (id_servico, descricao) VALUES (9, 'Freios');
+
+-- Table: users
+CREATE TABLE IF NOT EXISTS users (
+    id_user   INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome      VARCHAR(50),
+    email     VARCHAR(100),
+    senha     VARCHAR(100)
+);
+INSERT INTO users (id_user, nome, email, senha) VALUES (1, 'Jonatas Melo', 'jonatas@teste.com', '$2b$10$GZEw7RDUFN5GM4cWqJSG2OjDlAxeiD1htJJlzPJwWGTYlXrSEG3au');
+INSERT INTO users (id_user, nome, email, senha) VALUES (2, 'mario', 'mario@teste.com', '$2b$10$RP5MQZ9sIQCdS6l/wsb7buv8lZt4sE/gJjP0XjqeG2JjCx9sjXHhm');
+INSERT INTO users (id_user, nome, email, senha) VALUES (8, 'Jonatas', 'jonatasmelo511@gmail.com', '$2b$10$3YxATwE9UeYLP.FVadXUS.qEcdY3POnneqpf0mtbVqKOkruWOf1nq');
+INSERT INTO users (id_user, nome, email, senha) VALUES (11, 'Cacau', 'cacaulinda2018@gmail.com', '$2b$10$97Jh3hDJSj/3BCQqQE4xred/yoNAzYVCJn0U0.EbPsdL7F/btfE4K');
+INSERT INTO users (id_user, nome, email, senha) VALUES (12, 'Gi', 'melojonatas511@gmail.com', '$2b$10$YOoOjpgDGblr62PFxZ1xIes2zgRqJgcAVdT2Xb3j07G7DO15oysTi');
+
+COMMIT TRANSACTION;
+PRAGMA foreign_keys = on;
